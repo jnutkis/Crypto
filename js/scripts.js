@@ -288,13 +288,17 @@ var pageWidth = function(){
 	if (a <= 480) {
 		$(".table_head").css({"width":a/1.1,"textAlign":"center"});
 		$(".table_head > table").css("width",a/1.1);
-	} else if (a <= 768) {
+	} else if (a <= 928) {
 		$(".table_head").css({"width":a/2.1,"textAlign":"center"});
 		$(".table_head > table").css("width",a/2.1);	
-	} else {	
+	} else if (a <= 1487) {	
 		$(".table_head").css({"width":a/3.1,"textAlign":"center"});
 		$(".table_head > table").css("width",a/3.1);
+	} else {
+                $(".table_head").css({"width":a/4.1,"textAlign":"center"});
+                $(".table_head > table").css("width",a/4.1);	
 	}
+
 }
 
 

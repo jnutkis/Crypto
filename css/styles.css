@@ -21,6 +21,7 @@ html{
 
 .table_head > table {
 	font-size: 12px;
+	overflow: hidden;
 }
 
 .col_1{
