@@ -49,7 +49,7 @@
 		  </table>
 	  </div>
           <div id = 'ant_currency_container' class="table_head">
-                <u>ANT Shares (ANT)</u>
+                <u>ANT Shares (ANS)</u>
                   <table id="ant">
                   <tr><td>LOADING...</td></tr>
                   </table>
