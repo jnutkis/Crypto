@@ -23,17 +23,17 @@ var header_width = function(type) {
 var resultColor = function(type,result,one_result){
         var a = "#"+type+"_currency_container";
         if (result >= 0) {
-			if(one_result >= 0) {
-                $(a).css({"borderColor":"#00ff00","color":"#00ff00"});
-			} else {
-				$(a).css({"borderColor":"#4256f4","color":"#4256f4"});
-			}
+		if(one_result >= 0) {
+                	$(a).css({"borderColor":"#00ff00","color":"#00ff00"});
 		} else {
-			if(one_result < 0) {
-                $(a).css({"borderColor":"#ff3300","color":"#ff3300"});
-			} else {
-				$(a).css({"borderColor":"#f4f94a","color":"#f4f94a"});
-        }
+			$(a).css({"borderColor":"#4256f4","color":"#4256f4"});
+		}
+	} else {
+		if(one_result < 0) {
+                	$(a).css({"borderColor":"#ff3300","color":"#ff3300"});
+		} else {
+			$(a).css({"borderColor":"#f4f94a","color":"#f4f94a"});
+        	}
 	}
 };
 
