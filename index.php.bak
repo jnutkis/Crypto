@@ -1,9 +1,10 @@
+ <?php include 'config/db.php'; ?>
 <!DOCTYPE html>
 <html>
   <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta http-equiv="refresh" content="60" />
+  <!--<meta http-equiv="refresh" content="60" />-->
   <meta http-equiv="cache-control" content="max-age=0" />
   <meta http-equiv="cache-control" content="no-cache" />
   <meta http-equiv="expires" content="0" />
@@ -47,6 +48,12 @@
 		  <tr><td>LOADING...</td></tr>
 		  </table>
 	  </div>
+          <div id = 'ant_currency_container' class="table_head">
+                <u>ANT Shares (ANT)</u>
+                  <table id="ant">
+                  <tr><td>LOADING...</td></tr>
+                  </table>
+          </div>
 	  <div id ="balances">
 		<h1 id="head" >Balance</h1>
 		<ul id = "balance_id">
@@ -54,5 +61,26 @@
 		<p id ="balance_total">
 		</p>
 	  </div>
-  </body>
+<?php
+	if (htmlspecialchars($_GET["user"])) {
+		echo 'Hello ' . htmlspecialchars($_GET["user"]) . '!';
+	}
+	 /*
+	$sql = "SELECT * FROM PEOPLE";
+	$result =  mysqli_query($link,$sql);
+	
+	if ($result->num_rows > 0) {
+    // output data of each row
+    	while($row = $result->fetch_assoc()) {
+        echo "<br> id: ". $row["ID"]. " - Name: ". $row["USERNAME"];
+	}
+	} else {
+    	echo "0 results";
+	}
+
+
+	mysqli_close($link);
+ */?>
+
+   </body>
 </html>

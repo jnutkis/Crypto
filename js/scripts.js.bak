@@ -4,15 +4,11 @@ var bank = {
 	iota: 1320.066,
 	humaniq: 1693.512,
 	guppy: 990.589,
-	ant: 22.22474385,
-	lbc: 262.19006486,
-	ltc: 21.59816186,
-	sia: 12979.12654746,
-	nxt: 1405.77248569
+	ant: 22.22474385
 }
 
 var prices = {};
-var totalBalance = {};
+
 
 var header_width = function(type) {
 	var a = "#"+type+"_currency_container";
@@ -37,42 +33,16 @@ var setTitle = function(){
 
 var sum = 0;
 
-var setBalanceNew = function(obj) {
-        var a = Object.keys(obj);
-        var b = [];
-        for (var i = 0;i<a.length;i++) {
-                if(obj[a[i]]>0) {
-                        b.push(Object.keys(obj)[i])
-                }
-	}
-        var c = $("#balance_id");
-	for (var i = 0;i < b.length;i++) {
-		var d = "#balance_id > li#" + b[i];
-		if ($(d).length === 0) {
-			c.append("<li id ='"+b[i]+"'></li>")
-		}
-	}
-}
+
 
 var setBalance = function(type,label) {
-	var a = "li#"+type;
+	var a = $("#balance_id");
 	var price = prices[type];
 	var amount = bank[type];
-	/*a.append('<li>'+label+': $'+parseFloat((price*amount)).toFixed(2)+'</li>');*/
-	$(a).html(label+': $'+parseFloat((price*amount)).toFixed(2));
+	a.append('<li>'+label+': $'+parseFloat((price*amount)).toFixed(2)+'</li>');
 	var b = parseFloat(price*amount)
-	totalBalance[type]=b;
+	sum += b;
 };
-
-var getBalanceTotal = function() {
-	sum = 0;
-	var a = Object.values(totalBalance);
-	for (var i = 0;i < a.length; i++) {
-		sum += a[i];	
-	}
-	 $("#balance_total").html('<ul><li> Total: $'+sum.toFixed(2)+'</li></ul>')
-        setTitle();
-}
 
 var balanceTotal = function() {
 	$("#balance_total").html('<ul><li> Total: $'+sum.toFixed(2)+'</li></ul>')
@@ -97,7 +67,7 @@ var eth = function() {
 		resultColor("eth",ethResult);
 		setTitle();
 		setBalance("eth","Ethereum");
-		getBalanceTotal();
+		balanceTotal();
 	});
 };
 
@@ -117,7 +87,7 @@ var golem = function() {
 		header_width("golem");
 		resultColor("golem",golemResult);
 		setBalance("golem","Golem");
-		getBalanceTotal();
+		balanceTotal();
 	});
 };
 
@@ -137,7 +107,7 @@ var iota = function() {
 		header_width("iota");
 		resultColor("iota",iotaResult);
 		setBalance("iota","IOTA");
-		getBalanceTotal();
+		balanceTotal();
 	});
 };
 
@@ -157,7 +127,7 @@ var humaniq = function() {
 		header_width("humaniq");
 		resultColor("humaniq",humaniqResult);
 		setBalance("humaniq","Humaniq");
-		getBalanceTotal();
+		balanceTotal();
 	});
 };
 
@@ -177,7 +147,7 @@ var guppy = function() {
 		header_width("guppy");
 		resultColor("guppy",guppyResult);
 		setBalance("guppy","Matchpool");
-		getBalanceTotal();
+		balanceTotal();
 	});
 };
 
@@ -197,89 +167,7 @@ var ant = function() {
                 header_width("ant");
                 resultColor("ant",antResult);
                 setBalance("ant","ANT Shares");
-		getBalanceTotal();
-        });
-};
-
-var lbcResult,lbcPrice;
-var lbc = function() {
-        $.getJSON('https://api.coinmarketcap.com/v1/ticker/library-credit/', function(data) {
-                        $("#lbc").html('<tr><td class ="col_1"> Price USD:</td><td class ="col_2"> $' + data[0].price_usd + ' </td></tr>');
-                        $("#lbc").append('<tr><td class="col_1"> Price BTC:</td><td class ="col_2">' + data[0].price_btc + ' </td></tr>');
-                        $("#lbc").append('<tr><td class="col_1"> 1H Price %:</td><td class ="col_2">' + data[0].percent_change_1h + '% </td></tr>');
-                        $("#lbc").append('<tr><td class="col_1"> 24H Price %:</td><td class ="col_2">' + data[0].percent_change_24h + '% </td></tr>');
-                        $("#lbc").append('<tr><td class="col_1"> 24H Volume: </td><td class ="col_2">' + parseInt(data[0]['24h_volume_usd']) + ' </td></tr>');
-                        lbcResult = parseFloat(data[0].percent_change_24h);
-                        lbcPrice = data[0].price_usd;
-                        prices.lbc = lbcPrice;
-        })
-        .done(function(){
-                header_width("lbc");
-                resultColor("lbc",lbcResult);
-                setBalance("lbc","LBRY Credits");
-                getBalanceTotal();
-        });
-};
-
-var ltcResult,ltcPrice;
-var ltc = function() {
-        $.getJSON('https://api.coinmarketcap.com/v1/ticker/litecoin/', function(data) {
-                        $("#ltc").html('<tr><td class ="col_1"> Price USD:</td><td class ="col_2"> $' + data[0].price_usd + ' </td></tr>');
-                        $("#ltc").append('<tr><td class="col_1"> Price BTC:</td><td class ="col_2">' + data[0].price_btc + ' </td></tr>');
-                        $("#ltc").append('<tr><td class="col_1"> 1H Price %:</td><td class ="col_2">' + data[0].percent_change_1h + '% </td></tr>');
-                        $("#ltc").append('<tr><td class="col_1"> 24H Price %:</td><td class ="col_2">' + data[0].percent_change_24h + '% </td></tr>');
-                        $("#ltc").append('<tr><td class="col_1"> 24H Volume: </td><td class ="col_2">' + parseInt(data[0]['24h_volume_usd']) + ' </td></tr>');
-                        ltcResult = parseFloat(data[0].percent_change_24h);
-                        ltcPrice = data[0].price_usd;
-                        prices.ltc = ltcPrice;
-        })
-        .done(function(){
-                header_width("ltc");
-                resultColor("ltc",ltcResult);
-                setBalance("ltc","Litecoin");
-                getBalanceTotal();
-        });
-};
-
-var siaResult,siaPrice;
-var sia = function() {
-        $.getJSON('https://api.coinmarketcap.com/v1/ticker/siacoin/', function(data) {
-                        $("#sia").html('<tr><td class ="col_1"> Price USD:</td><td class ="col_2"> $' + data[0].price_usd + ' </td></tr>');
-                        $("#sia").append('<tr><td class="col_1"> Price BTC:</td><td class ="col_2">' + data[0].price_btc + ' </td></tr>');
-                        $("#sia").append('<tr><td class="col_1"> 1H Price %:</td><td class ="col_2">' + data[0].percent_change_1h + '% </td></tr>');
-                        $("#sia").append('<tr><td class="col_1"> 24H Price %:</td><td class ="col_2">' + data[0].percent_change_24h + '% </td></tr>');
-                        $("#sia").append('<tr><td class="col_1"> 24H Volume: </td><td class ="col_2">' + parseInt(data[0]['24h_volume_usd']) + ' </td></tr>');
-                        siaResult = parseFloat(data[0].percent_change_24h);
-                        siaPrice = data[0].price_usd;
-                        prices.sia = siaPrice;
-        })
-        .done(function(){
-                header_width("sia");
-                resultColor("sia",siaResult);
-                setTitle();
-                setBalance("sia","Siacoin");
-                getBalanceTotal();
-        });
-};
-
-var nxtResult,nxtPrice;
-var nxt = function() {
-        $.getJSON('https://api.coinmarketcap.com/v1/ticker/nxt/', function(data) {
-                        $("#nxt").html('<tr><td class ="col_1"> Price USD:</td><td class ="col_2"> $' + data[0].price_usd + ' </td></tr>');
-                        $("#nxt").append('<tr><td class="col_1"> Price BTC:</td><td class ="col_2">' + data[0].price_btc + ' </td></tr>');
-                        $("#nxt").append('<tr><td class="col_1"> 1H Price %:</td><td class ="col_2">' + data[0].percent_change_1h + '% </td></tr>');
-                        $("#nxt").append('<tr><td class="col_1"> 24H Price %:</td><td class ="col_2">' + data[0].percent_change_24h + '% </td></tr>');
-                        $("#nxt").append('<tr><td class="col_1"> 24H Volume: </td><td class ="col_2">' + parseInt(data[0]['24h_volume_usd']) + ' </td></tr>');
-                        nxtResult = parseFloat(data[0].percent_change_24h);
-                        nxtPrice = data[0].price_usd;
-                        prices.nxt = nxtPrice;
-        })
-        .done(function(){
-                header_width("nxt");
-                resultColor("nxt",nxtResult);
-                setTitle();
-                setBalance("nxt","NXT");
-                getBalanceTotal();
+                balanceTotal();
         });
 };
 
@@ -300,18 +188,12 @@ var pageWidth = function(){
 
 $(document).ready(function(){
 	pageWidth();
-	setBalanceNew(bank);
 	eth();
 	golem();
 	iota();
 	humaniq();
 	guppy();
 	ant();
-	lbc();
-	ltc();
-	sia();
-	nxt();
-	setInterval(function(){eth();golem();iota();humaniq();guppy();ant();lbc();ltc();sia();nxt();},10000);
 });
 
 $(window).resize(function(){
