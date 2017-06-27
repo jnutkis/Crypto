@@ -1,5 +1,5 @@
 var bank = {
-        eth: 10.9976,
+        eth: 12.9976,
         golem: 986.518,
         iota: 1320.066,
         humaniq: 1693.512,
